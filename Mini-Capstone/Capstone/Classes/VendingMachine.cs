@@ -38,7 +38,7 @@ namespace Capstone.Classes
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = false;
             }
@@ -59,33 +59,21 @@ namespace Capstone.Classes
             switch (inputAmount)
             {
                 case 1:
-                    Balance += inputAmount;
-                    Console.WriteLine();
-                    Console.WriteLine($"Amount deposited: ${inputAmount}");
-                    break;
-
                 case 2:
-                    Balance += inputAmount;
-                    Console.WriteLine();
-                    Console.WriteLine($"Amount deposited: ${inputAmount}");
-                    break;
-
                 case 5:
-                    Balance += inputAmount;
-                    Console.WriteLine();
-                    Console.WriteLine($"Amount deposited: ${inputAmount}");
-                    break;
-
                 case 10:
-                    Balance += inputAmount;
-                    Console.WriteLine();
-                    Console.WriteLine($"Amount deposited: ${inputAmount}");
-                    break;
-
                 case 20:
                     Balance += inputAmount;
                     Console.WriteLine();
                     Console.WriteLine($"Amount deposited: ${inputAmount}");
+
+                    string logFilePath = @"C:\VendingMachine";
+                    string logFileName = "TransactionLog.csv";
+                    string logFullPath = Path.Combine(logFilePath, logFileName);
+                    using (StreamWriter sw = new StreamWriter(logFullPath, false))
+                    {
+                        string outputString = $"{DateTime.UtcNow}| FEED MONEY |${inputAmount}|${Balance}";
+                    }
                     break;
 
                 default:
@@ -98,18 +86,18 @@ namespace Capstone.Classes
 
         public void Vend(string selection)
         {
+            UserInterface userInterface = new UserInterface();
             foreach (VendingMachineItem item in items)
             {
                 if (selection.ToUpper() == item.typeNumber)
                 {
                     if (item.itemQuantity == 0)
                     {
-                        UserInterface userInterface = new UserInterface();
                         Console.WriteLine();
                         Console.WriteLine("SOLD OUT");
-                        userInterface.vendingMenu();
+                        return;
                     }
-                    else if (Balance < item.itemPrice)
+                    if (Balance < item.itemPrice)
                     {
                         Console.WriteLine("NOT ENOUGH MONEY, PLEASE INSERT MORE AND TRY AGAIN");
                     }
@@ -137,8 +125,47 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         item.itemQuantity -= 1;
                         Balance -= item.itemPrice;
+
+                        string logFilePath = @"C:\VendingMachine";
+                        string logFileName = "TransactionLog.csv";
+                        string logFullPath = Path.Combine(logFilePath, logFileName);
+                        using (StreamWriter sw = new StreamWriter(logFullPath, false))
+                        {
+                            string outputString = $"{DateTime.UtcNow}|{item.itemName}|{item.typeNumber}|${Balance + item.itemPrice}|${Balance}";
+                        }
                     }
                 }
+                else
+                {
+                    Console.WriteLine("NO SUCH ITEM EXISTS; PLEASE MAKE A VALID CHOICE!!!");
+                    Console.WriteLine();
+                    return;
+                }
+            }
+        }
+
+        public void MakeChange()
+        {
+            decimal beginningBalance = Balance;
+            decimal qt = 0;
+            decimal dm = 0;
+            decimal nk = 0;
+
+            qt = Balance / .25M; 
+            Balance %= .25M;
+            dm = Balance / .10M;
+            Balance  %= .10M;
+            nk = Balance / .05M;
+            Balance %= .05M;
+
+            Console.WriteLine($"Your change is {(int)qt} quarters, {(int)dm} dimes, and {(int)nk} nickels.");
+
+            string logFilePath = @"C:\VendingMachine";
+            string logFileName = "TransactionLog.csv";
+            string logFullPath = Path.Combine(logFilePath, logFileName);
+            using (StreamWriter sw = new StreamWriter(logFullPath, false))
+            {
+                string outputString = $"{DateTime.UtcNow}| GIVE CHANGE |${beginningBalance}|${Balance}";
             }
         }
     }
