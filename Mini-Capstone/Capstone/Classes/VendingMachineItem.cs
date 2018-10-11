@@ -13,7 +13,7 @@ namespace Capstone.Classes
 
         public override string ToString()
         {
-            return $"{typeNumber} {itemName}  {itemPrice}  {itemQuantity}";
+            return $"{typeNumber} - {itemName}      Price: ${itemPrice}     Available:{itemQuantity}";
         }
 
         //not sure what output should look like yet
