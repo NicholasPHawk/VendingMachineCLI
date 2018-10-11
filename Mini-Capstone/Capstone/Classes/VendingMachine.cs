@@ -38,7 +38,7 @@ namespace Capstone.Classes
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = false;
             }
@@ -98,13 +98,13 @@ namespace Capstone.Classes
 
         public void Vend(string selection)
         {
+            UserInterface userInterface = new UserInterface();
             foreach (VendingMachineItem item in items)
             {
                 if (selection.ToUpper() == item.typeNumber)
                 {
                     if (item.itemQuantity == 0)
                     {
-                        UserInterface userInterface = new UserInterface();
                         Console.WriteLine();
                         Console.WriteLine("SOLD OUT");
                         userInterface.vendingMenu();
