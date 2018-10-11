@@ -68,7 +68,7 @@ namespace Capstone.Classes
                     break;
 
                 case 3:
-                    //vendingMachine.MakeChange();
+                    vendingMachine.MakeChange();
                     Console.WriteLine();
                     Console.WriteLine();
                     break;
@@ -83,10 +83,10 @@ namespace Capstone.Classes
         private void DisplayVendingMachine()
         {
             VendingMachineItem[] result = vendingMachine.List();
-            for (int i = 0; i < 16; i++)
+            foreach (VendingMachineItem item in result)
             {
-                Console.WriteLine(result[i].ToString());
-            }
+                Console.WriteLine(item.ToString());
+            }            
         }
     }
 }
