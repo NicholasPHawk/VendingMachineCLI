@@ -14,6 +14,15 @@ namespace Capstone.Classes
             bool done = false;
             while (!done)
             {
+                done = mainMenu();
+            }
+        }
+
+
+        bool mainMenu()
+        {
+            try
+            {
                 Console.WriteLine("(1) Display Vending Machine Items\n(2) Purchase\n(3) End");
                 int interfaceInput = Int32.Parse(Console.ReadLine());
 
@@ -23,23 +32,30 @@ namespace Capstone.Classes
                         DisplayVendingMachine();
                         Console.WriteLine();
                         Console.WriteLine();
-                        break;
+                        return true;
+                        
 
                     case 2:
                         vendingMenu();
-                        break;
+                        return true;
 
                     case 3:
-                        done = true;
-                        break;
+                        return false;
 
                     default:
                         Console.WriteLine("Please enter a valid choice.");
                         Console.WriteLine();
                         Console.WriteLine();
-                        break;
+                        return true;
                 }
             }
+            catch
+            {
+                Console.WriteLine("Please enter a valid choice.");
+                return true;
+            }
+
+
 
         }
 
@@ -73,6 +89,7 @@ namespace Capstone.Classes
                         vendingMachine.MakeChange();
                         Console.WriteLine();
                         Console.WriteLine();
+                        mainMenu();
                         break;
 
                     default:
@@ -81,7 +98,7 @@ namespace Capstone.Classes
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Please enter a valid choice.");
                 vendingMenu();
@@ -94,7 +111,8 @@ namespace Capstone.Classes
             foreach (VendingMachineItem item in result)
             {
                 Console.WriteLine(item.ToString());
-            }            
+            }
         }
+
     }
 }
