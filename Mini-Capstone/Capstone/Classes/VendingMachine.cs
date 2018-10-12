@@ -97,41 +97,45 @@ namespace Capstone.Classes
                         Console.WriteLine("SOLD OUT");
                         return;
                     }
-                    if (Balance < item.itemPrice)
-                    {
-                        Console.WriteLine("NOT ENOUGH MONEY, PLEASE INSERT MORE AND TRY AGAIN");
-                    }
                     else
                     {
-                        Console.WriteLine();
-                        Console.WriteLine($"Dispensing: {item.itemName}");
+                        if (Balance < item.itemPrice)
+                        {
+                            Console.WriteLine("NOT ENOUGH MONEY, PLEASE INSERT MORE AND TRY AGAIN");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"Dispensing: {item.itemName}");
 
-                        if (item.typeNumber.Contains('A'))
-                        {
-                            Console.WriteLine("Crunch Crunch, Yum!");
-                        }
-                        else if (item.typeNumber.Contains('B'))
-                        {
-                            Console.WriteLine("Munch Munch, Yum!");
-                        }
-                        else if (item.typeNumber.Contains('C'))
-                        {
-                            Console.WriteLine("Glug Glug, Yum!");
-                        }
-                        else if (item.typeNumber.Contains('D'))
-                        {
-                            Console.WriteLine("Chew Chew, Yum!");
-                        }
-                        Console.WriteLine();
-                        item.itemQuantity -= 1;
-                        Balance -= item.itemPrice;
+                            if (item.typeNumber.Contains('A'))
+                            {
+                                Console.WriteLine("Crunch Crunch, Yum!");
+                            }
+                            else if (item.typeNumber.Contains('B'))
+                            {
+                                Console.WriteLine("Munch Munch, Yum!");
+                            }
+                            else if (item.typeNumber.Contains('C'))
+                            {
+                                Console.WriteLine("Glug Glug, Yum!");
+                            }
+                            else if (item.typeNumber.Contains('D'))
+                            {
+                                Console.WriteLine("Chew Chew, Yum!");
+                            }
+                            Console.WriteLine();
+                            item.itemQuantity -= 1;
+                            Balance -= item.itemPrice;
 
-                        string logFilePath = @"C:\VendingMachine";
-                        string logFileName = "TransactionLog.csv";
-                        string logFullPath = Path.Combine(logFilePath, logFileName);
-                        using (StreamWriter sw = new StreamWriter(logFullPath, false))
-                        {
-                            string outputString = $"{DateTime.UtcNow}|{item.itemName}|{item.typeNumber}|${Balance + item.itemPrice}|${Balance}";
+                            string logFilePath = @"C:\VendingMachine";
+                            string logFileName = "TransactionLog.csv";
+                            string logFullPath = Path.Combine(logFilePath, logFileName);
+                            using (StreamWriter sw = new StreamWriter(logFullPath, false))
+                            {
+                                string outputString = $"{DateTime.UtcNow}|{item.itemName}|{item.typeNumber}|${Balance + item.itemPrice}|${Balance}";
+                            }
                         }
                     }
                 }
