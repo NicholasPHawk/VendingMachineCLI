@@ -48,35 +48,43 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"(1) Feed Money\n(2) Select Product\n(3) Finish Transaction\nCurrent Balance: ${vendingMachine.Balance}");
-            int vendingInput = Int32.Parse(Console.ReadLine());
-
-            switch (vendingInput)
+            try
             {
-                case 1:
-                    vendingMachine.feedMoney();
-                    vendingMenu();
-                    break;
+                int vendingInput = Int32.Parse(Console.ReadLine());
 
-                case 2:
-                    DisplayVendingMachine();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine("Enter selection:");
-                    string selection = Console.ReadLine();
-                    vendingMachine.Vend(selection);
-                    vendingMenu();
-                    break;
+                switch (vendingInput)
+                {
+                    case 1:
+                        vendingMachine.feedMoney();
+                        vendingMenu();
+                        break;
 
-                case 3:
-                    vendingMachine.MakeChange();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    break;
+                    case 2:
+                        DisplayVendingMachine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Enter selection:");
+                        string selection = Console.ReadLine();
+                        vendingMachine.Vend(selection);
+                        vendingMenu();
+                        break;
 
-                default:
-                    Console.WriteLine("Please enter a valid choice.");
-                    vendingMenu();
-                    break;
+                    case 3:
+                        vendingMachine.MakeChange();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter a valid choice.");
+                        vendingMenu();
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Please enter a valid choice.");
+                vendingMenu();
             }
         }
 
