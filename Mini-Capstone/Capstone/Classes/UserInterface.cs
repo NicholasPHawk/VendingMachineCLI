@@ -14,12 +14,12 @@ namespace Capstone.Classes
             bool done = false;
             while (!done)
             {
-                done = mainMenu();
+                done = MainMenu();
             }
         }
 
 
-        bool mainMenu()
+        public bool MainMenu()
         {
             try
             {
@@ -33,10 +33,10 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine();
                         return true;
-                        
+
 
                     case 2:
-                        vendingMenu();
+                        VendingMenu();
                         return true;
 
                     case 3:
@@ -54,12 +54,9 @@ namespace Capstone.Classes
                 Console.WriteLine("Please enter a valid choice.");
                 return true;
             }
-
-
-
         }
 
-        public void vendingMenu()
+        public void VendingMenu()
         {
             Console.WriteLine();
             Console.WriteLine();
@@ -71,8 +68,8 @@ namespace Capstone.Classes
                 switch (vendingInput)
                 {
                     case 1:
-                        vendingMachine.feedMoney();
-                        vendingMenu();
+                        vendingMachine.FeedMoney();
+                        VendingMenu();
                         break;
 
                     case 2:
@@ -82,26 +79,26 @@ namespace Capstone.Classes
                         Console.WriteLine("Enter selection:");
                         string selection = Console.ReadLine();
                         vendingMachine.Vend(selection);
-                        vendingMenu();
+                        VendingMenu();
                         break;
 
                     case 3:
                         vendingMachine.MakeChange();
                         Console.WriteLine();
                         Console.WriteLine();
-                        mainMenu();
+                        MainMenu();
                         break;
 
                     default:
                         Console.WriteLine("Please enter a valid choice.");
-                        vendingMenu();
+                        VendingMenu();
                         break;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Please enter a valid choice.");
-                vendingMenu();
+                VendingMenu();
             }
         }
 

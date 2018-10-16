@@ -50,7 +50,7 @@ namespace Capstone.Classes
         {
             return items.ToArray();
         }
-        public void feedMoney()
+        public void FeedMoney()
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Capstone.Classes
                     default:
                         Console.WriteLine("Please enter a valid amount.");
                         Console.WriteLine();
-                        feedMoney();
+                        FeedMoney();
                         break;
                 }
             }
@@ -89,7 +89,7 @@ namespace Capstone.Classes
             {
                 Console.WriteLine("That isn't even a number. Try again.");
                 Console.WriteLine();
-                feedMoney();
+                FeedMoney();
             }
         }
 
